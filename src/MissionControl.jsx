@@ -1,4 +1,6 @@
 import MissionCard from "./MissionCard"
+import MissionAction from "./MissionAction";
+import MissionFilter from "./MissionFilter";
 
 const INITIAL_MISSIONS = [
     { id: 1, name: "Mars Rover", status: "Planned", crew: ["Alice", "Bob"] },
@@ -16,14 +18,18 @@ const INITIAL_MISSIONS = [
 export default function MissionControl() {
     return (
         <div>
-            <h1>Mission Control</h1>
+            <h1>Space Mission Control</h1>
+            <MissionFilter />
+            <MissionAction />
+
             {INITIAL_MISSIONS.map(m => {
-                return(
+                return (
                     < MissionCard key={m.id} name={m.name} status={m.status} crew={m.crew} />
                 )
             })
-            
+
             }
+
 
         </div>
     )
