@@ -1,6 +1,7 @@
 import MissionCard from "./MissionCard"
 import MissionAction from "./MissionAction";
 import MissionFilter from "./MissionFilter";
+import React, { useState } from "react";
 
 const INITIAL_MISSIONS = [
     { id: 1, name: "Mars Rover", status: "Planned", crew: ["Alice", "Bob"] },
@@ -15,16 +16,27 @@ const INITIAL_MISSIONS = [
     { id: 10, name: "Pluto Reclamation", status: "Planned", crew: ["Sam", "Tina"] }
 ];
 
+
+
 export default function MissionControl() {
+    const [missions, setMissions] = useState(INITIAL_MISSIONS);
+
+    const handleMissionClick = (name) => {
+        console.log(name, "click");
+        const newMissions = missions.filter((mission => mission.name !== name));
+        setMissions(newMissions);
+        console.log(missions);
+        console.log(newMissions);
+    };
     return (
         <div>
             <h1>Space Mission Control</h1>
             <MissionFilter />
             <MissionAction />
 
-            {INITIAL_MISSIONS.map(m => {
+            {missions.map(m => {
                 return (
-                    < MissionCard key={m.id} name={m.name} status={m.status} crew={m.crew} />
+                    < MissionCard key={m.id} name={m.name} status={m.status} crew={m.crew} handleMissionClick={handleMissionClick} />
                 )
             })
 
