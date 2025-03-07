@@ -3,7 +3,7 @@ import { useState } from "react"
 export default function MissionAction() {
 
     const changeStatus = () => {
-            
+
     }
 
     const changeToComplete = () => {
@@ -14,7 +14,7 @@ export default function MissionAction() {
     return (
         <div className="MissionAction">
             <button onClick={changeStatus}>Launch</button>
-            <button conClick={changeToComplete} >Complete</button>
+            <button onClick={changeToComplete} >Complete</button>
         </div>
     )
 }

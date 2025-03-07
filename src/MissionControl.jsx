@@ -23,11 +23,17 @@ export default function MissionControl() {
 
     const handleMissionClick = (name) => {
         console.log(name, "click");
-        const newMissions = missions.filter((mission => mission.name !== name));
+        const newMissions = missions.map((mission) => {
+            if (mission.name === name) {
+                return {
+                    ...mission,
+                    status: mission.status === "Planned" ? "Active" : "Completed",
+                };
+            }
+            return mission;
+        });
         setMissions(newMissions);
-        console.log(missions);
-        console.log(newMissions);
-    };
+    }
     return (
         <div>
             <h1>Space Mission Control</h1>
