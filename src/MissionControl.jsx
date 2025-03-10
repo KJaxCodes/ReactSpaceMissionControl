@@ -19,26 +19,72 @@ const INITIAL_MISSIONS = [
 
 
 export default function MissionControl() {
-    const [missions, setMissions] = useState(INITIAL_MISSIONS);
+    const [missions, setMissions] = useState([...INITIAL_MISSIONS]);
+
+
+    // mission filter event handlers//
+    const handleMissionFilter = (event) => {
+        console.log("Mission Filter");
+        if (event.target.innerText === "All") {
+            setMissions({ ...INITIAL_MISSIONS });
+        } else {
+            const filteredMissions = INITIAL_MISSIONS.filter((mission) => mission.status === event.target.innerText);
+            setMissions(filteredMissions);
+        }
+    };
+    // const handleShowPlanned = () => {
+    //     console.log("Planned");
+    //     const plannedMissions = INITIAL_MISSIONS.filter((mission) => mission.status === "Planned");
+    //     setMissions([plannedMissions]);
+    // };
+    // const handleShowActive = () => {
+    //     console.log("Active");
+    //     const activeMissions = INITIAL_MISSIONS.filter((mission) => mission.status === "Active");
+    //     setMissions([activeMissions]);
+    // };
+    // const handleShowCompleted = () => {
+    //     console.log("Completed");
+    //     const completedMissions = INITIAL_MISSIONS.filter((mission) => mission.status === "Completed");
+    //     console.log(completedMissions);
+    //     setMissions([completedMissions]);
+    // };
 
     const handleMissionClick = (name) => {
-        console.log(name, "click");
-        const newMissions = missions.map((mission) => {
+        // console.log(name);
+        // const newMissions = missions.map((mission) => {
+        //     if (mission.name === name) {
+        //         return {
+        //             ...mission,
+        //             status: mission.status === "Planned" ? "Active" : "Completed",
+        //         };
+        //     }
+        //     return mission;
+        // });
+        for (const mission of INITIAL_MISSIONS) {
+            console.log(mission);
             if (mission.name === name) {
-                return {
-                    ...mission,
-                    status: mission.status === "Planned" ? "Active" : "Completed",
-                };
+                if (mission.status === "Planned") {
+                    mission.status = "Active";
+                } else if (mission.status === "Active") {
+                    mission.status = "Completed"
+                } else {
+                    return;
+                }
             }
-            return mission;
-        });
-        setMissions(newMissions);
+        }
+        console.log(INITIAL_MISSIONS);
+        setMissions([...INITIAL_MISSIONS]);
+        // setMissions(newMissions);
     }
     return (
         <div>
             <h1>Space Mission Control</h1>
-            <MissionFilter />
-            <MissionAction />
+            <MissionFilter
+                handleMissionFilter={handleMissionFilter}
+            // handleShowPlanned={handleShowPlanned}
+            // handleShowActive={handleShowActive}
+            // handleShowCompleted={handleShowCompleted}
+            />
 
             {missions.map(m => {
                 return (

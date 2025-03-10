@@ -1,20 +1,10 @@
 import { useState } from "react"
 
-export default function MissionAction() {
-
-    const changeStatus = () => {
-
-    }
-
-    const changeToComplete = () => {
-
-    }
-
-
+export default function MissionAction(handleLaunch, handleComplete) {
     return (
         <div className="MissionAction">
-            <button onClick={changeStatus}>Launch</button>
-            <button onClick={changeToComplete} >Complete</button>
+            <button onClick={handleLaunch}>Launch</button>
+            <button onClick={handleComplete} >Complete</button>
         </div>
     )
 }
