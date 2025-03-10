@@ -1,5 +1,5 @@
 import MissionCard from "./MissionCard"
-import MissionAction from "./MissionAction";
+
 import MissionFilter from "./MissionFilter";
 import React, { useState } from "react";
 
@@ -49,33 +49,34 @@ export default function MissionControl() {
     //     setMissions([completedMissions]);
     // };
 
-    const handleMissionClick = (name) => {
-        // console.log(name);
-        // const newMissions = missions.map((mission) => {
-        //     if (mission.name === name) {
-        //         return {
-        //             ...mission,
-        //             status: mission.status === "Planned" ? "Active" : "Completed",
-        //         };
-        //     }
-        //     return mission;
-        // });
-        for (const mission of INITIAL_MISSIONS) {
-            console.log(mission);
-            if (mission.name === name) {
-                if (mission.status === "Planned") {
-                    mission.status = "Active";
-                } else if (mission.status === "Active") {
-                    mission.status = "Completed"
-                } else {
-                    return;
-                }
-            }
-        }
-        console.log(INITIAL_MISSIONS);
-        setMissions([...INITIAL_MISSIONS]);
-        // setMissions(newMissions);
-    }
+    // const handleMissionClick = (name) => {
+    //     // console.log(name);
+    //     // const newMissions = missions.map((mission) => {
+    //     //     if (mission.name === name) {
+    //     //         return {
+    //     //             ...mission,
+    //     //             status: mission.status === "Planned" ? "Active" : "Completed",
+    //     //         };
+    //     //     }
+    //     //     return mission;
+    //     // });
+    //     for (const mission of INITIAL_MISSIONS) {
+    //         console.log(mission);
+    //         if (mission.name === name) {
+    //             if (mission.status === "Planned") {
+    //                 mission.status = "Active";
+    //             } else if (mission.status === "Active") {
+    //                 mission.status = "Completed"
+    //             } else {
+    //                 return;
+    //             }
+    //         }
+    //     }
+    //     console.log(INITIAL_MISSIONS);
+    //     setMissions([...INITIAL_MISSIONS]);
+    //     // setMissions(newMissions);
+    // }
+
     return (
         <div>
             <h1>Space Mission Control</h1>
@@ -88,7 +89,7 @@ export default function MissionControl() {
 
             {missions.map(m => {
                 return (
-                    < MissionCard key={m.id} name={m.name} status={m.status} crew={m.crew} handleMissionClick={handleMissionClick} />
+                    < MissionCard key={m.id} name={m.name} status={m.status} crew={m.crew} />
                 )
             })
 

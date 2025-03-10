@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-export default function MissionAction(handleLaunch, handleComplete) {
+export default function MissionAction({ handleLaunch, handleComplete }) {
     return (
         <div className="MissionAction">
             <button onClick={handleLaunch}>Launch</button>
