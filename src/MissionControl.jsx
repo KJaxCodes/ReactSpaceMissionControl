@@ -1,5 +1,5 @@
 import MissionCard from "./MissionCard"
-
+import MissionAction from "./MissionAction";
 import MissionFilter from "./MissionFilter";
 import React, { useState } from "react";
 
@@ -26,12 +26,48 @@ export default function MissionControl() {
     const handleMissionFilter = (event) => {
         console.log("Mission Filter");
         if (event.target.innerText === "All") {
-            setMissions({ ...INITIAL_MISSIONS });
+            setMissions([...INITIAL_MISSIONS]);
         } else {
             const filteredMissions = INITIAL_MISSIONS.filter((mission) => mission.status === event.target.innerText);
             setMissions(filteredMissions);
         }
     };
+
+    const handleLaunch = (name) => {
+        //handleLaunch takes one parameter, name, representing the mission to be launched
+        console.log("Launch the mission");
+        //confirms function is triggerd
+    
+        const updatedMissions = missions.map((mission) => {
+            if (mission.name === name) {
+                if (mission.status === "Planned") {
+                    return { ...mission, status: "Active" };
+                } else {
+                    console.log("Mission already launched or completed.");
+                }
+            }
+            return mission;
+        });
+    
+        setMissions(updatedMissions);
+    };
+
+    const handleComplete = (name) => {
+        console.log("Complete the mission");
+
+        for (const mission of missions) {
+            if (mission.name === name) {
+                if (mission.status === "Active" || mission.status === "Planned") {
+                    mission.status = "Completed";
+                } else {
+                    return
+                }
+            }
+        }
+        setMissions([...INITIAL_MISSIONS]);
+    }
+
+
     // const handleShowPlanned = () => {
     //     console.log("Planned");
     //     const plannedMissions = INITIAL_MISSIONS.filter((mission) => mission.status === "Planned");
@@ -87,9 +123,10 @@ export default function MissionControl() {
             // handleShowCompleted={handleShowCompleted}
             />
 
+            {/* {console.log("These are the missions", missions)} */}
             {missions.map(m => {
                 return (
-                    < MissionCard key={m.id} name={m.name} status={m.status} crew={m.crew} />
+                    < MissionCard key={m.id} name={m.name} status={m.status} crew={m.crew} handleLaunch={handleLaunch} handleComplete={handleComplete} />
                 )
             })
 
