@@ -1,4 +1,4 @@
-export default function MissionFilter({handleMissionFilter}) {
+export default function MissionFilter({ handleMissionFilter }) {
     //we need an onClick event listener on each button //
     //All should show all mission cards//
     //Planned should show all mission cards with status planned//

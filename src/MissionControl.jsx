@@ -20,7 +20,7 @@ const INITIAL_MISSIONS = [
 
 export default function MissionControl() {
     const [missions, setMissions] = useState([...INITIAL_MISSIONS]);
-
+    //useState so that we can update the status and filter
 
     // mission filter event handlers//
     const handleMissionFilter = (event) => {
@@ -30,6 +30,7 @@ export default function MissionControl() {
         } else {
             const filteredMissions = INITIAL_MISSIONS.filter((mission) => mission.status === event.target.innerText);
             setMissions(filteredMissions);
+            //render with updated filter
         }
     };
 
@@ -37,81 +38,40 @@ export default function MissionControl() {
         //handleLaunch takes one parameter, name, representing the mission to be launched
         console.log("Launch the mission");
         //confirms function is triggerd
-    
-        const updatedMissions = missions.map((mission) => {
+
+        for (const mission of INITIAL_MISSIONS) {
             if (mission.name === name) {
                 if (mission.status === "Planned") {
-                    return { ...mission, status: "Active" };
+                    mission.status = "Active";
                 } else {
                     console.log("Mission already launched or completed.");
                 }
             }
-            return mission;
-        });
-    
-        setMissions(updatedMissions);
+        }
+
+        setMissions([...INITIAL_MISSIONS]);
+        //update the initial data set, then render with the updated status
+
     };
+
 
     const handleComplete = (name) => {
         console.log("Complete the mission");
 
-        for (const mission of missions) {
+        for (const mission of INITIAL_MISSIONS) {
             if (mission.name === name) {
                 if (mission.status === "Active" || mission.status === "Planned") {
                     mission.status = "Completed";
                 } else {
-                    return
+                    console.log("Mission already completed.")
                 }
             }
         }
+
         setMissions([...INITIAL_MISSIONS]);
+        //update the initial data set, then render with the updated status
     }
 
-
-    // const handleShowPlanned = () => {
-    //     console.log("Planned");
-    //     const plannedMissions = INITIAL_MISSIONS.filter((mission) => mission.status === "Planned");
-    //     setMissions([plannedMissions]);
-    // };
-    // const handleShowActive = () => {
-    //     console.log("Active");
-    //     const activeMissions = INITIAL_MISSIONS.filter((mission) => mission.status === "Active");
-    //     setMissions([activeMissions]);
-    // };
-    // const handleShowCompleted = () => {
-    //     console.log("Completed");
-    //     const completedMissions = INITIAL_MISSIONS.filter((mission) => mission.status === "Completed");
-    //     console.log(completedMissions);
-    //     setMissions([completedMissions]);
-    // };
-
-    // const handleMissionClick = (name) => {
-    //     // console.log(name);
-    //     // const newMissions = missions.map((mission) => {
-    //     //     if (mission.name === name) {
-    //     //         return {
-    //     //             ...mission,
-    //     //             status: mission.status === "Planned" ? "Active" : "Completed",
-    //     //         };
-    //     //     }
-    //     //     return mission;
-    //     // });
-    //     for (const mission of INITIAL_MISSIONS) {
-    //         console.log(mission);
-    //         if (mission.name === name) {
-    //             if (mission.status === "Planned") {
-    //                 mission.status = "Active";
-    //             } else if (mission.status === "Active") {
-    //                 mission.status = "Completed"
-    //             } else {
-    //                 return;
-    //             }
-    //         }
-    //     }
-    //     console.log(INITIAL_MISSIONS);
-    //     setMissions([...INITIAL_MISSIONS]);
-    //     // setMissions(newMissions);
-    // }
 
     return (
         <div>
@@ -126,7 +86,14 @@ export default function MissionControl() {
             {/* {console.log("These are the missions", missions)} */}
             {missions.map(m => {
                 return (
-                    < MissionCard key={m.id} name={m.name} status={m.status} crew={m.crew} handleLaunch={handleLaunch} handleComplete={handleComplete} />
+                    < MissionCard
+                        key={m.id}
+                        name={m.name}
+                        status={m.status}
+                        crew={m.crew}
+                        handleLaunch={handleLaunch}
+                        handleComplete={handleComplete}
+                    />
                 )
             })
 
